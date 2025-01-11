@@ -142,12 +142,24 @@ void ATank::Fire() {
             turret_rotation_, 2.0f, velocity);
         fire_count_down_ = kTickPerSecond;  // Fire interval 1 second.
       }
+      if (input_data.key_down[GLFW_KEY_Q]) {
+        for (int i = 0; i < 3; i++) {
+          for (int j = 1; j < 100; j++) {
+            auto velocity =
+                Rotate(glm::vec2{(j - 50) / float(100), 1.0f}, turret_rotation_);
+            GenerateBullet<bullet::CannonBall>(
+                position_ + Rotate({0.0f, 1.2f}, turret_rotation_),
+                turret_rotation_, 0.05f , velocity);
+          }
+        }
+        fire_count_down_ =  10 * kTickPerSecond;  // Fire interval 10 second. float in the plane. 
+      }
       if (input_data.mouse_button_down[GLFW_MOUSE_BUTTON_RIGHT]) {
         auto velocity = Rotate(glm::vec2{0.0f, 20.0f}, turret_rotation_);
         GenerateBullet<bullet::CannonBall>(
             position_ + Rotate({0.0f, 1.2f}, turret_rotation_),
             turret_rotation_, 0.005f, velocity);
-        fire_count_down_ =  kTickPerSecond/100;  // Fire interval 0.01 second.
+        fire_count_down_ = kTickPerSecond / 100;  // Fire interval 0.01 second. ป๚วน
       }
     }
   }
